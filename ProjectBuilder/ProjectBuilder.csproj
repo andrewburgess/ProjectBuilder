@@ -181,6 +181,7 @@
     <Compile Include="Orchestrators\HomeOrchestrator.cs" />
     <Compile Include="Orchestrators\Interfaces\IConfigurationOrchestrator.cs" />
     <Compile Include="Orchestrators\Interfaces\IHomeOrchestrator.cs" />
+    <Compile Include="ViewModels\DTO\NodeDTO.cs" />
     <Compile Include="ViewModels\DTO\ProjectDTO.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

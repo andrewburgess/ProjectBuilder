@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/30/2012 14:11:07
+-- Date Created: 10/30/2012 16:12:08
 -- Generated from EDMX file: C:\Projects\ProjectBuilder\ProjectBuilder\Models\Generated\ProjectBuilderDataModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,47 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_ParentChildren]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Nodes] DROP CONSTRAINT [FK_ParentChildren];
+GO
+IF OBJECT_ID(N'[dbo].[FK_NodeProperty]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Properties] DROP CONSTRAINT [FK_NodeProperty];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectProjectNode]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectNodes] DROP CONSTRAINT [FK_ProjectProjectNode];
+GO
+IF OBJECT_ID(N'[dbo].[FK_NodeProjectNode]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectNodes] DROP CONSTRAINT [FK_NodeProjectNode];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PropertyProjectNodeProperty]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectNodeProperties] DROP CONSTRAINT [FK_PropertyProjectNodeProperty];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectNodeProjectNodeProperty]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectNodeProperties] DROP CONSTRAINT [FK_ProjectNodeProjectNodeProperty];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProjectNodeParentChildren]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProjectNodes] DROP CONSTRAINT [FK_ProjectNodeParentChildren];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Nodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Nodes];
+GO
+IF OBJECT_ID(N'[dbo].[Properties]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Properties];
+GO
+IF OBJECT_ID(N'[dbo].[Projects]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Projects];
+GO
+IF OBJECT_ID(N'[dbo].[ProjectNodes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProjectNodes];
+GO
+IF OBJECT_ID(N'[dbo].[ProjectNodeProperties]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProjectNodeProperties];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -45,7 +81,7 @@ CREATE TABLE [dbo].[Properties] (
     [Description] nvarchar(max)  NOT NULL,
     [DateCreated] datetime  NOT NULL,
     [DateModified] datetime  NOT NULL,
-    [PropertyType] nvarchar(max)  NOT NULL,
+    [PropertyType] smallint  NOT NULL,
     [Node_Id] int  NOT NULL
 );
 GO

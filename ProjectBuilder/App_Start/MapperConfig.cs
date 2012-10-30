@@ -9,6 +9,7 @@ namespace ProjectBuilder.App_Start
         public static void RegisterMappings()
         {
             Mapper.CreateMap<Project, ProjectDTO>();
+            Mapper.CreateMap<Node, NodeDTO>();
         }
     }
 }

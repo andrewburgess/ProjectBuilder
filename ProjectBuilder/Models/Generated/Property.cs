@@ -25,7 +25,7 @@ namespace ProjectBuilder.Models
         public string Description { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
-        public string PropertyType { get; set; }
+        public short PropertyType { get; set; }
     
         public virtual Node Node { get; set; }
         public virtual ICollection<ProjectNodeProperty> ProjectNodeProperties { get; set; }

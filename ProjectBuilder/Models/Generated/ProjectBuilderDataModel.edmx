@@ -60,7 +60,7 @@
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
-    <Property Name="PropertyType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PropertyType" Type="smallint" Nullable="false" />
     <Property Name="Node_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Projects">
@@ -246,7 +246,7 @@
           <Property Type="String" Name="Description" Nullable="false" DefaultValue="" />
           <Property Type="DateTime" Name="DateCreated" Nullable="false" />
           <Property Type="DateTime" Name="DateModified" Nullable="false" />
-          <Property Type="String" Name="PropertyType" Nullable="false" />
+          <Property Type="Int16" Name="PropertyType" Nullable="false" />
           <NavigationProperty Name="Node" Relationship="ProjectBuilder.Models.NodeProperty" FromRole="Property" ToRole="Node" />
           <NavigationProperty Name="ProjectNodeProperties" Relationship="ProjectBuilder.Models.PropertyProjectNodeProperty" FromRole="Property" ToRole="ProjectNodeProperty" />
         </EntityType>
