@@ -4,11 +4,183 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" Namespace="ProjectBuilderDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="ProjectBuilderDataModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="ProjectBuilder.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ProjectBuilderModelsStoreContainer">
+    <EntitySet Name="Nodes" EntityType="ProjectBuilder.Models.Store.Nodes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Properties" EntityType="ProjectBuilder.Models.Store.Properties" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="ProjectBuilder.Models.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectNodes" EntityType="ProjectBuilder.Models.Store.ProjectNodes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectNodeProperties" EntityType="ProjectBuilder.Models.Store.ProjectNodeProperties" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ParentChildren" Association="ProjectBuilder.Models.Store.ParentChildren">
+      <End Role="Node" EntitySet="Nodes" />
+      <End Role="Node1" EntitySet="Nodes" />
+    </AssociationSet>
+    <AssociationSet Name="NodeProperty" Association="ProjectBuilder.Models.Store.NodeProperty">
+      <End Role="Node" EntitySet="Nodes" />
+      <End Role="Property" EntitySet="Properties" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectProjectNode" Association="ProjectBuilder.Models.Store.ProjectProjectNode">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="ProjectNode" EntitySet="ProjectNodes" />
+    </AssociationSet>
+    <AssociationSet Name="NodeProjectNode" Association="ProjectBuilder.Models.Store.NodeProjectNode">
+      <End Role="Node" EntitySet="Nodes" />
+      <End Role="ProjectNode" EntitySet="ProjectNodes" />
+    </AssociationSet>
+    <AssociationSet Name="PropertyProjectNodeProperty" Association="ProjectBuilder.Models.Store.PropertyProjectNodeProperty">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="ProjectNodeProperty" EntitySet="ProjectNodeProperties" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectNodeProjectNodeProperty" Association="ProjectBuilder.Models.Store.ProjectNodeProjectNodeProperty">
+      <End Role="ProjectNode" EntitySet="ProjectNodes" />
+      <End Role="ProjectNodeProperty" EntitySet="ProjectNodeProperties" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectNodeParentChildren" Association="ProjectBuilder.Models.Store.ProjectNodeParentChildren">
+      <End Role="ProjectNode" EntitySet="ProjectNodes" />
+      <End Role="Parent" EntitySet="ProjectNodes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Nodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+    <Property Name="Parent_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Properties">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+    <Property Name="PropertyType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Node_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectNodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateModified" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Project_Id" Type="int" Nullable="false" />
+    <Property Name="Node_Id" Type="int" Nullable="false" />
+    <Property Name="Parent_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ProjectNodeProperties">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateModified" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Property_Id" Type="int" Nullable="false" />
+    <Property Name="ProjectNode_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ParentChildren">
+    <End Role="Node" Type="ProjectBuilder.Models.Store.Nodes" Multiplicity="0..1" />
+    <End Role="Node1" Type="ProjectBuilder.Models.Store.Nodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Node">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Node1">
+        <PropertyRef Name="Parent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NodeProperty">
+    <End Role="Node" Type="ProjectBuilder.Models.Store.Nodes" Multiplicity="1" />
+    <End Role="Property" Type="ProjectBuilder.Models.Store.Properties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Node">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Property">
+        <PropertyRef Name="Node_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectProjectNode">
+    <End Role="Project" Type="ProjectBuilder.Models.Store.Projects" Multiplicity="1" />
+    <End Role="ProjectNode" Type="ProjectBuilder.Models.Store.ProjectNodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectNode">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NodeProjectNode">
+    <End Role="Node" Type="ProjectBuilder.Models.Store.Nodes" Multiplicity="1" />
+    <End Role="ProjectNode" Type="ProjectBuilder.Models.Store.ProjectNodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Node">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectNode">
+        <PropertyRef Name="Node_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PropertyProjectNodeProperty">
+    <End Role="Property" Type="ProjectBuilder.Models.Store.Properties" Multiplicity="1" />
+    <End Role="ProjectNodeProperty" Type="ProjectBuilder.Models.Store.ProjectNodeProperties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectNodeProperty">
+        <PropertyRef Name="Property_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectNodeProjectNodeProperty">
+    <End Role="ProjectNode" Type="ProjectBuilder.Models.Store.ProjectNodes" Multiplicity="1" />
+    <End Role="ProjectNodeProperty" Type="ProjectBuilder.Models.Store.ProjectNodeProperties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectNode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectNodeProperty">
+        <PropertyRef Name="ProjectNode_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectNodeParentChildren">
+    <End Role="ProjectNode" Type="ProjectBuilder.Models.Store.ProjectNodes" Multiplicity="0..1" />
+    <End Role="Parent" Type="ProjectBuilder.Models.Store.ProjectNodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectNode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Parent">
+        <PropertyRef Name="Parent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ProjectBuilder.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -142,13 +314,122 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="ProjectBuilderDataModel" />
-        <Alias Key="Target" Value="ProjectBuilderDataModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="DataModel" StorageEntityContainer="ProjectBuilderDataModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectBuilderModelsStoreContainer" CdmEntityContainer="DataModel">
+    <EntitySetMapping Name="Nodes">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectBuilder.Models.Node)">
+        <MappingFragment StoreEntitySet="Nodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Properties">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectBuilder.Models.Property)">
+        <MappingFragment StoreEntitySet="Properties">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectBuilder.Models.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectNodes">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectBuilder.Models.ProjectNode)">
+        <MappingFragment StoreEntitySet="ProjectNodes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectNodeProperties">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectBuilder.Models.ProjectNodeProperty)">
+        <MappingFragment StoreEntitySet="ProjectNodeProperties">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ParentChildren" TypeName="ProjectBuilder.Models.ParentChildren" StoreEntitySet="Nodes">
+      <EndProperty Name="Node">
+        <ScalarProperty Name="Id" ColumnName="Parent_Id" />
+      </EndProperty>
+      <EndProperty Name="Node1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Parent_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NodeProperty" TypeName="ProjectBuilder.Models.NodeProperty" StoreEntitySet="Properties">
+      <EndProperty Name="Node">
+        <ScalarProperty Name="Id" ColumnName="Node_Id" />
+      </EndProperty>
+      <EndProperty Name="Property">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProjectProjectNode" TypeName="ProjectBuilder.Models.ProjectProjectNode" StoreEntitySet="ProjectNodes">
+      <EndProperty Name="Project">
+        <ScalarProperty Name="Id" ColumnName="Project_Id" />
+      </EndProperty>
+      <EndProperty Name="ProjectNode">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NodeProjectNode" TypeName="ProjectBuilder.Models.NodeProjectNode" StoreEntitySet="ProjectNodes">
+      <EndProperty Name="Node">
+        <ScalarProperty Name="Id" ColumnName="Node_Id" />
+      </EndProperty>
+      <EndProperty Name="ProjectNode">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PropertyProjectNodeProperty" TypeName="ProjectBuilder.Models.PropertyProjectNodeProperty" StoreEntitySet="ProjectNodeProperties">
+      <EndProperty Name="Property">
+        <ScalarProperty Name="Id" ColumnName="Property_Id" />
+      </EndProperty>
+      <EndProperty Name="ProjectNodeProperty">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProjectNodeProjectNodeProperty" TypeName="ProjectBuilder.Models.ProjectNodeProjectNodeProperty" StoreEntitySet="ProjectNodeProperties">
+      <EndProperty Name="ProjectNode">
+        <ScalarProperty Name="Id" ColumnName="ProjectNode_Id" />
+      </EndProperty>
+      <EndProperty Name="ProjectNodeProperty">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProjectNodeParentChildren" TypeName="ProjectBuilder.Models.ProjectNodeParentChildren" StoreEntitySet="ProjectNodes">
+      <EndProperty Name="ProjectNode">
+        <ScalarProperty Name="Id" ColumnName="Parent_Id" />
+      </EndProperty>
+      <EndProperty Name="Parent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Parent_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
