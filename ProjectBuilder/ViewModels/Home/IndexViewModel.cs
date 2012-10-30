@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using ProjectBuilder.ViewModels.DTO;
 
 namespace ProjectBuilder.ViewModels.Home
 {
     public class IndexViewModel
     {
-        public List<Project> Projects { get; set; }
+        public List<ProjectDTO> Projects { get; set; }
     }
 }

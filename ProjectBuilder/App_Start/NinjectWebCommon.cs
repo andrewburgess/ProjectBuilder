@@ -1,3 +1,6 @@
+using ProjectBuilder.Orchestrators;
+using ProjectBuilder.Orchestrators.Interfaces;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(ProjectBuilder.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(ProjectBuilder.App_Start.NinjectWebCommon), "Stop")]
 
@@ -53,6 +56,7 @@ namespace ProjectBuilder.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IHomeOrchestrator>().To<HomeOrchestrator>();
         }
     }
 }

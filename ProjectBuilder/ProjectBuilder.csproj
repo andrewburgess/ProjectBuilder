@@ -46,8 +46,9 @@
     <Reference Include="AttributeRouting.Web.Mvc">
       <HintPath>..\packages\AttributeRouting.3.1.2\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.1-ci9\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -175,6 +176,9 @@
       <DependentUpon>DataModelGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PropertyTypes.cs" />
+    <Compile Include="Orchestrators\ConfigurationController.cs" />
+    <Compile Include="Orchestrators\HomeOrchestrator.cs" />
+    <Compile Include="Orchestrators\Interfaces\IHomeOrchestrator.cs" />
     <Compile Include="ViewModels\DTO\ProjectDTO.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -213,7 +217,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\API\" />
-    <Folder Include="Orchestrators\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -242,6 +245,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataModelGenerator.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Configuration\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
