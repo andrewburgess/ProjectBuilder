@@ -176,8 +176,10 @@
       <DependentUpon>DataModelGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PropertyTypes.cs" />
-    <Compile Include="Orchestrators\ConfigurationController.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Orchestrators\ConfigurationOrchestrator.cs" />
     <Compile Include="Orchestrators\HomeOrchestrator.cs" />
+    <Compile Include="Orchestrators\Interfaces\IConfigurationOrchestrator.cs" />
     <Compile Include="Orchestrators\Interfaces\IHomeOrchestrator.cs" />
     <Compile Include="ViewModels\DTO\ProjectDTO.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />

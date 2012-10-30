@@ -56,7 +56,8 @@ namespace ProjectBuilder.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IHomeOrchestrator>().To<HomeOrchestrator>();
+            kernel.Bind<IHomeOrchestrator>().To<HomeOrchestrator>().InSingletonScope();
+            kernel.Bind<IConfigurationOrchestrator>().To<ConfigurationOrchestrator>().InSingletonScope();
         }
     }
 }
