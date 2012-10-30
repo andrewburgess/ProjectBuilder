@@ -23,7 +23,7 @@ namespace ProjectBuilder.Controllers
         [GET("index")]
         public ActionResult Index()
         {
-            return View(Orchestrator.GetIndexViewModel());
+            return View(Orchestrator.GetIndex());
         }
 
     }

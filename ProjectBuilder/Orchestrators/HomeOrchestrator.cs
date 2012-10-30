@@ -4,13 +4,12 @@ using AutoMapper;
 using ProjectBuilder.Models;
 using ProjectBuilder.Orchestrators.Interfaces;
 using ProjectBuilder.ViewModels.Home;
-using ProjectBuilder.ViewModels.Home.Index;
 
 namespace ProjectBuilder.Orchestrators
 {
     public class HomeOrchestrator : IHomeOrchestrator
     {
-        public IndexViewModel GetIndexViewModel()
+        public IndexViewModel GetIndex()
         {
             using (var context = new DataModel())
             {

@@ -1,4 +1,4 @@
-﻿@model ProjectBuilder.ViewModels.Configuration.Index.IndexViewModel;
+﻿@model ProjectBuilder.ViewModels.Configuration.IndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -11,3 +11,7 @@
     Set up the project builder and get all the pieces working nicely
 </p>
 }
+
+<div class="span3">
+    @Html.Partial("_NodeList", Model.Nodes)
+</div>

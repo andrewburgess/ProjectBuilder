@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ProjectBuilder.ViewModels.Home.Index
+namespace ProjectBuilder.ViewModels.Home
 {
     public class IndexViewModel
     {

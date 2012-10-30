@@ -1,6 +1,6 @@
-namespace ProjectBuilder.ViewModels.Home.Index
+namespace ProjectBuilder.ViewModels.Configuration
 {
-    public class IndexProjectViewModel
+    public class IndexNodeViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

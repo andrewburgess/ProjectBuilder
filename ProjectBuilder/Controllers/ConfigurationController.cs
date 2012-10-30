@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using AttributeRouting.Web.Mvc;
 using ProjectBuilder.Orchestrators.Interfaces;
+using ProjectBuilder.ViewModels.API.Node;
 
 namespace ProjectBuilder.Controllers
 {
@@ -17,8 +18,7 @@ namespace ProjectBuilder.Controllers
         [GET("config/index")]
         public ActionResult Index()
         {
-            return View();
+            return View(Orchestrator.GetIndex());
         }
-
     }
 }

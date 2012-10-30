@@ -1,4 +1,4 @@
-﻿@model ProjectBuilder.ViewModels.Home.Index.IndexViewModel
+﻿@model ProjectBuilder.ViewModels.Home.IndexViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,20 +12,18 @@
     </p>
 }
 
-<div class="row-fluid">
-    <div class="span3">
-        <h2>Recently Updated Projects</h2>
-        <ul>
-        @foreach (var project in Model.Projects)
-        {
-            <li>@project.Name - <em>@project.Description</em></li>
-        }
-        </ul>
-    </div>
-    <div class="span9">
-        <h2>Whatever</h2>
-        <p>
-            Text about stuff here. Yadda yadda yadda
-        </p>
-    </div>
+<div class="span3">
+    <h2>Recently Updated Projects</h2>
+    <ul>
+    @foreach (var project in Model.Projects)
+    {
+        <li>@project.Name - <em>@project.Description</em></li>
+    }
+    </ul>
+</div>
+<div class="span9">
+    <h2>Whatever</h2>
+    <p>
+        Text about stuff here. Yadda yadda yadda
+    </p>
 </div>
