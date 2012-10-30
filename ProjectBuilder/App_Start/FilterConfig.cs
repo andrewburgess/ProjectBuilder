@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace ProjectBuilder
+namespace ProjectBuilder.App_Start
 {
     public class FilterConfig
     {
