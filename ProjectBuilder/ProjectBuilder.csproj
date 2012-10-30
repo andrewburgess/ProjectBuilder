@@ -145,6 +145,7 @@
     <Compile Include="Models\ProjectNodeProperty.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\PropertyTypes.cs" />
+    <Compile Include="Models\ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\API\" />
+    <Folder Include="Models\ViewModels\DTO\" />
+    <Folder Include="Orchestrators\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
