@@ -1,4 +1,4 @@
-namespace ProjectBuilder.ViewModels.Home
+namespace ProjectBuilder.ViewModels.Home.Index
 {
     public class IndexProjectViewModel
     {

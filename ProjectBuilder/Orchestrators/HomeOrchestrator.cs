@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using ProjectBuilder.Models;
 using ProjectBuilder.Orchestrators.Interfaces;
 using ProjectBuilder.ViewModels.Home;
+using ProjectBuilder.ViewModels.Home.Index;
 
 namespace ProjectBuilder.Orchestrators
 {
