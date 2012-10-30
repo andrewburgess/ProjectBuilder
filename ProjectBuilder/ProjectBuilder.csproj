@@ -66,6 +66,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -142,12 +144,36 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Node.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\ProjectBuilderDBContext.cs" />
-    <Compile Include="Models\ProjectNode.cs" />
-    <Compile Include="Models\ProjectNodeProperty.cs" />
-    <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\Generated\DataModelGenerator.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelGenerator.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\DataModelGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\Node.cs">
+      <DependentUpon>DataModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\Project.cs">
+      <DependentUpon>DataModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\ProjectBuilderDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectBuilderDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\ProjectNode.cs">
+      <DependentUpon>DataModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\ProjectNodeProperty.cs">
+      <DependentUpon>DataModelGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generated\Property.cs">
+      <DependentUpon>DataModelGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PropertyTypes.cs" />
     <Compile Include="ViewModels\DTO\ProjectDTO.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
@@ -196,6 +222,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\Generated\ProjectBuilderDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProjectBuilderDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Generated\DataModelGenerator.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataModelGenerator.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\Generated\DataModelGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataModelGenerator.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
