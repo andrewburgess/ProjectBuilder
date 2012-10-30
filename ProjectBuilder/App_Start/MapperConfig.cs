@@ -1,6 +1,6 @@
 using AutoMapper;
 using ProjectBuilder.Models;
-using ProjectBuilder.ViewModels.DTO;
+using ProjectBuilder.ViewModels.Home;
 
 namespace ProjectBuilder.App_Start
 {
@@ -8,8 +8,7 @@ namespace ProjectBuilder.App_Start
     {
         public static void RegisterMappings()
         {
-            Mapper.CreateMap<Project, ProjectDTO>();
-            Mapper.CreateMap<Node, NodeDTO>();
+            Mapper.CreateMap<Project, IndexProjectViewModel>();
         }
     }
 }
