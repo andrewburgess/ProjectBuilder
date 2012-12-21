@@ -12,13 +12,26 @@ namespace ProjectBuilder.Orchestrators
     {
         public IndexViewModel GetIndex()
         {
-            using (var context = new DataModel())
+            return new IndexViewModel
+                       {
+                           Nodes = new List<IndexNodeViewModel>()
+                                       {
+                                           new IndexNodeViewModel
+                                               {
+                                                   Id = 0,
+                                                   Description = "This node is the first one",
+                                                   Name = "First Node"
+                                               }
+                                       }
+                       };
+
+            /*using (var context = new DataModel())
             {
                 return new IndexViewModel
                            {
                                Nodes = Mapper.Map<List<Node>, List<IndexNodeViewModel>>(context.Nodes.ToList())
                            };
-            }
+            }*/
         }
     }
 }

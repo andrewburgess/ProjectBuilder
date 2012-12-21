@@ -43,10 +43,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web.aburgess.local.config" />
+    <None Include="Web.aburgess.local.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config" />
     <None Include="Web.Release.config" />
   </ItemGroup>

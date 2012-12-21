@@ -5,6 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Javascript {
+    <script type='text/javascript'>
+        var nodes = @Html.Raw(Json.Encode(Model.Nodes));
+    </script>
+    <script type='text/javascript' src='@Url.Content("~/Scripts/configuration/view-model.js")'></script>
+}
+
 @section Hero {
 <h1>Configuration</h1>
 <p>
@@ -12,6 +19,17 @@
 </p>
 }
 
-<div class="span3">
-    @Html.Partial("_NodeList", Model.Nodes)
+<div id='node-list' class="span3">
+    <div>
+        <button id='add-node' class='btn btn-primary'>Add Node</button>
+    </div>
+
+    <ul class="nav nav-list affix" data-bind="foreach: nodes">
+        <li data-bind="text: Name" />
+    </ul>
+</div>
+
+<div id='add-node-form' class='modal fade'>
+    <div class='modal-header'>
+    </div>
 </div>
