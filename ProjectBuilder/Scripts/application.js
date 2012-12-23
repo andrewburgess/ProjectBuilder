@@ -23,6 +23,8 @@
             var $element = $(element);
             if (value)
                 $element.modal('show');
+            else
+                $element.modal('hide');
 
             return returnValue;
         }

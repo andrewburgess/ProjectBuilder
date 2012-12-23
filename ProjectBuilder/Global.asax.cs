@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ProjectBuilder.App_Start;
+using StackExchange.Profiling;
 
 namespace ProjectBuilder
 {
@@ -21,6 +22,20 @@ namespace ProjectBuilder
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             MapperConfig.RegisterMappings();
+
+            MiniProfilerEF.Initialize();
+        }
+
+        protected void Application_BeginRequest()
+        {
+            if (Request.IsLocal)
+            {
+                var ignored = MiniProfiler.Settings.IgnoredPaths.ToList();
+                ignored.Add("Glimpse.axd");
+                MiniProfiler.Settings.IgnoredPaths = ignored.ToArray();
+
+                MiniProfiler.Start();
+            }
         }
     }
 }

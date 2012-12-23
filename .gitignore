@@ -1,5 +1,6 @@
 #Ignore Web.config because it gets replaced after a build due to transforms
 ProjectBuilder/Web.config
+App_Readme/
 
 #################
 ## Eclipse

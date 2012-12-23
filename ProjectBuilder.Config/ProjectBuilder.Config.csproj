@@ -48,6 +48,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <None Include="Web.aburgess.local.config">
       <SubType>Designer</SubType>
     </None>

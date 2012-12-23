@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using StackExchange.Profiling;
+<!DOCTYPE html>
 
 <html>
 <head>
+    @this.InitClientTimings()
     <meta name="viewport" content="width=device-width" />
     <title>Sparkles Project Builder</title>
 
@@ -30,5 +32,6 @@
 
     <script type='text/javascript' src='@Url.Content("~/Scripts/application.js")'></script>
     @RenderSection("Javascript", false)
+    @MiniProfiler.RenderIncludes()
 </body>
 </html>

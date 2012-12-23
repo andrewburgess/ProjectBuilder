@@ -31,5 +31,12 @@ namespace ProjectBuilder.Controllers.API
                                     ModelState.Values.Where(x => x.Errors.Count > 0).SelectMany(x => x.Errors).Select(
                                         x => x.ErrorMessage).Aggregate((x, y) => x + ", " + y));
         }
+
+        [GET("api/node/view")]
+        [HttpGet]
+        public string View()
+        {
+            return "hahaha";
+        }
     }
 }
