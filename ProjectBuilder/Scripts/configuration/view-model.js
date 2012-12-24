@@ -1,9 +1,12 @@
 ﻿(function ($, ko) {
 
-    function Node(data) {
+    function Node(data, children) {
         this.Id = ko.observable(data.Id);
         this.Name = ko.observable(data.Name);
         this.Description = ko.observable(data.Description);
+        this.ParentId = ko.observable(data.ParentId);
+
+        this.Children = ko.observableArray(children || []);
     }
 
     function NodeListViewModel(data) {
@@ -17,7 +20,7 @@
         };
 
         this.addNode = function () {
-            var newNode = new Node({ Id: -1, Name: '', Description: '' });
+            var newNode = new Node({ Id: -1, Name: '', Description: '', ParentId: null });
             this.modalNode(newNode);
         };
 
@@ -25,7 +28,7 @@
             var savedNode = self.modalNode();
 
             if (savedNode.Id() === -1) {
-                var node = new Node({ Id: savedNode.Id(), Name: savedNode.Name(), Description: savedNode.Description() });
+                var node = new Node({ Id: savedNode.Id(), Name: savedNode.Name(), Description: savedNode.Description(), ParentId: savedNode.ParentId() });
                 self.nodes.push(node);
 
                 $.ajax({
