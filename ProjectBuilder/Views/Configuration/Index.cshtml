@@ -19,7 +19,7 @@
 </p>
 }
 
-<div id='node-list' class="span3">
+<div id='node-list' class="span3" data-delete-url="@Url.Action("Delete", "Node")">
     <div>
         <button id='add-node' class='btn btn-primary' data-bind='click: addNode'>Add Node</button>
     </div>
@@ -27,7 +27,7 @@
     <ul data-bind='foreach: nodes'>
         <li>
             <div class='pull-right'>
-                <a href='@Url.Action("Delete", "Node")' class='pull-right' data-bind="click: $parent.deleteNode"><i class='icon icon-remove'></i></a>
+                <a href='#' class='pull-right' data-bind="click: $parent.deleteNode"><i class='icon icon-remove'></i></a>
             </div>
             <div data-bind="text: Name, click: $parent.editNode"></div>
         </li>

@@ -53,12 +53,9 @@
             self.modalNode(node);
         };
 
-        this.deleteNode = function (node, event) {
-            var $this = $(event.target);
-            var anchor = $this.closest('a');
-
+        this.deleteNode = function (node) {
             $.ajax({
-                url: $(anchor).attr('href') + '/' + node.Id(),
+                url: $('#node-list').data('delete-url') + '/' + node.Id(),
                 type: 'POST',
                 contentType: 'application/json',
                 success: function () {

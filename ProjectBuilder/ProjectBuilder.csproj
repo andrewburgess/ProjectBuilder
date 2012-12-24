@@ -56,21 +56,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AttributeRouting, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AttributeRouting, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AttributeRouting.Core.3.4\lib\net40\AttributeRouting.dll</HintPath>
+      <HintPath>..\packages\AttributeRouting.Core.3.4.1\lib\net40\AttributeRouting.dll</HintPath>
     </Reference>
-    <Reference Include="AttributeRouting.Web, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AttributeRouting.Web, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AttributeRouting.Core.Web.3.4\lib\net40\AttributeRouting.Web.dll</HintPath>
+      <HintPath>..\packages\AttributeRouting.Core.Web.3.4.1\lib\net40\AttributeRouting.Web.dll</HintPath>
     </Reference>
-    <Reference Include="AttributeRouting.Web.Http, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AttributeRouting.Web.Mvc, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AttributeRouting.Core.Http.3.4\lib\net40\AttributeRouting.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="AttributeRouting.Web.Mvc, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AttributeRouting.3.4\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\AttributeRouting.3.4.1\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -228,12 +224,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="config_transform.msbuild">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\style.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />

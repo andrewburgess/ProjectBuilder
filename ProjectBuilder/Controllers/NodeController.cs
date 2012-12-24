@@ -23,7 +23,7 @@ namespace ProjectBuilder.Controllers
             return Json(Orchestrator.Add(viewModel));
         }
 
-        [POST("api/node/edit/{id}")]
+        [POST("api/node/edit/{id?}")]
         [ValidationActionFilter]
         public ActionResult Edit(EditNodeViewModel viewModel)
         {
@@ -32,7 +32,7 @@ namespace ProjectBuilder.Controllers
             return new EmptyResult();
         }
 
-        [POST("api/node/delete/{id}")]
+        [POST("api/node/delete/{id?}")]
         public ActionResult Delete(int id)
         {
             Orchestrator.Delete(id);
