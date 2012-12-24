@@ -16,5 +16,11 @@ namespace ProjectBuilder.Orchestrators.Interfaces
         /// </summary>
         /// <param name="viewModel">Updated information for the node</param>
         void Edit(EditNodeViewModel viewModel);
+
+        /// <summary>
+        /// Deletes an existing node
+        /// </summary>
+        /// <param name="id">Id of the node to delete</param>
+        void Delete(int id);
     }
 }

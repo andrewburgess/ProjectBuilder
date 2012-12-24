@@ -22,11 +22,17 @@ namespace ProjectBuilder.Controllers.API
             return Orchestrator.Add(viewModel);
         }
 
-        [POST("api/node/edit")]
+        [POST("api/node/edit/{id}")]
         [ValidationActionFilter]
         public void Edit(EditNodeViewModel viewModel)
         {
             Orchestrator.Edit(viewModel);
+        }
+
+        [DELETE("api/node/delete/{id}")]
+        public void Delete(int id)
+        {
+            Orchestrator.Delete(id);
         }
     }
 }

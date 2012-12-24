@@ -39,7 +39,7 @@
                 });
             } else {
                 $.ajax({
-                    url: $('#node-form').data('edit-url'),
+                    url: $('#node-form').data('edit-url') + '/' + savedNode.Id(),
                     data: ko.toJSON(savedNode),
                     type: 'POST',
                     contentType: 'application/json'
@@ -51,6 +51,20 @@
 
         this.editNode = function (node) {
             self.modalNode(node);
+        };
+
+        this.deleteNode = function (node, event) {
+            var $this = $(event.target);
+            var anchor = $this.closest('a');
+
+            $.ajax({
+                url: $(anchor).attr('href') + '/' + node.Id(),
+                type: 'DELETE',
+                contentType: 'application/json',
+                success: function () {
+                    self.nodes.destroy(node);
+                }
+            });
         };
     }
 

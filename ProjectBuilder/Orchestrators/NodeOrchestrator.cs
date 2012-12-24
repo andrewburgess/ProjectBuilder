@@ -33,5 +33,17 @@ namespace ProjectBuilder.Orchestrators
                 context.SaveChanges();
             }
         }
+
+        public void Delete(int id)
+        {
+            using (var context = new DataModel())
+            {
+                var node = context.Nodes.FirstOrDefault(x => x.Id == id);
+                if (node == null) throw new ArgumentException("Id was not found");
+
+                context.Nodes.Remove(node);
+                context.SaveChanges();
+            }
+        }
     }
 }

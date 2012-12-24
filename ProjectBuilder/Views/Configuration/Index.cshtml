@@ -24,8 +24,13 @@
         <button id='add-node' class='btn btn-primary' data-bind='click: addNode'>Add Node</button>
     </div>
 
-    <ul class="nav nav-list affix" data-bind='foreach: nodes'>
-        <li data-bind="text: Name, click: $parent.editNode" />
+    <ul data-bind='foreach: nodes'>
+        <li>
+            <div class='pull-right'>
+                <a href='/api/node/delete' class='pull-right' data-bind="click: $parent.deleteNode"><i class='icon icon-remove'></i></a>
+            </div>
+            <div data-bind="text: Name"></div>
+        </li>
     </ul>
 </div>
 
