@@ -1,12 +1,13 @@
-﻿using System.Web.Http;
+﻿using System.Web.Mvc;
 using AttributeRouting.Web.Mvc;
-using ProjectBuilder.Controllers.API.Attributes;
+using ProjectBuilder.Controllers.Attributes;
 using ProjectBuilder.Orchestrators.Interfaces;
 using ProjectBuilder.ViewModels.Node;
 
-namespace ProjectBuilder.Controllers.API
+namespace ProjectBuilder.Controllers
 {
-    public class NodeController : ApiController
+    [HandleAjaxError]
+    public class NodeController : Controller
     {
         private INodeOrchestrator Orchestrator { get; set; }
 
@@ -17,22 +18,25 @@ namespace ProjectBuilder.Controllers.API
 
         [POST("api/node/add")]
         [ValidationActionFilter]
-        public int Create(AddNodeViewModel viewModel)
+        public ActionResult Create(AddNodeViewModel viewModel)
         {
-            return Orchestrator.Add(viewModel);
+            return Json(Orchestrator.Add(viewModel));
         }
 
         [POST("api/node/edit/{id}")]
         [ValidationActionFilter]
-        public void Edit(EditNodeViewModel viewModel)
+        public ActionResult Edit(EditNodeViewModel viewModel)
         {
             Orchestrator.Edit(viewModel);
+
+            return new EmptyResult();
         }
 
-        [DELETE("api/node/delete/{id}")]
-        public void Delete(int id)
+        [POST("api/node/delete/{id}")]
+        public ActionResult Delete(int id)
         {
             Orchestrator.Delete(id);
+            return new EmptyResult();
         }
     }
 }

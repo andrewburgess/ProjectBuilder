@@ -59,7 +59,7 @@
 
             $.ajax({
                 url: $(anchor).attr('href') + '/' + node.Id(),
-                type: 'DELETE',
+                type: 'POST',
                 contentType: 'application/json',
                 success: function () {
                     self.nodes.destroy(node);
