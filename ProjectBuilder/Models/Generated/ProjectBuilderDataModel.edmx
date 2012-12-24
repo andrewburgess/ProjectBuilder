@@ -79,8 +79,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Order" Type="int" Nullable="false" />
-    <Property Name="DateCreated" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateModified" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
     <Property Name="Project_Id" Type="int" Nullable="false" />
     <Property Name="Node_Id" Type="int" Nullable="false" />
     <Property Name="Parent_Id" Type="int" Nullable="true" />
@@ -91,8 +91,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateCreated" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateModified" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
     <Property Name="Property_Id" Type="int" Nullable="false" />
     <Property Name="ProjectNode_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -271,8 +271,8 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="Order" Nullable="false" />
-          <Property Type="String" Name="DateCreated" Nullable="false" />
-          <Property Type="String" Name="DateModified" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateModified" Nullable="false" />
           <NavigationProperty Name="Project" Relationship="ProjectBuilder.Models.ProjectProjectNode" FromRole="ProjectNode" ToRole="Project" />
           <NavigationProperty Name="Node" Relationship="ProjectBuilder.Models.NodeProjectNode" FromRole="ProjectNode" ToRole="Node" />
           <NavigationProperty Name="Properties" Relationship="ProjectBuilder.Models.ProjectNodeProjectNodeProperty" FromRole="ProjectNode" ToRole="ProjectNodeProperty" />
@@ -293,8 +293,8 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Value" Nullable="false" />
-          <Property Type="String" Name="DateCreated" Nullable="false" />
-          <Property Type="String" Name="DateModified" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateModified" Nullable="false" />
           <NavigationProperty Name="Property" Relationship="ProjectBuilder.Models.PropertyProjectNodeProperty" FromRole="ProjectNodeProperty" ToRole="Property" />
           <NavigationProperty Name="ProjectNode" Relationship="ProjectBuilder.Models.ProjectNodeProjectNodeProperty" FromRole="ProjectNodeProperty" ToRole="ProjectNode" />
         </EntityType>

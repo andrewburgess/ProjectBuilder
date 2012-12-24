@@ -12,7 +12,7 @@ namespace ProjectBuilder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Property
+    public partial class Property : IEntity
     {
         public Property()
         {

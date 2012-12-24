@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/31/2012 13:11:05
--- Generated from EDMX file: B:\Projects\ProjectBuilder\ProjectBuilder\Models\Generated\ProjectBuilderDataModel.edmx
+-- Date Created: 12/23/2012 21:13:41
+-- Generated from EDMX file: C:\Projects\ProjectBuilder\ProjectBuilder\Models\Generated\ProjectBuilderDataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -100,8 +100,8 @@ GO
 CREATE TABLE [dbo].[ProjectNodes] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Order] int  NOT NULL,
-    [DateCreated] nvarchar(max)  NOT NULL,
-    [DateModified] nvarchar(max)  NOT NULL,
+    [DateCreated] datetime  NOT NULL,
+    [DateModified] datetime  NOT NULL,
     [Project_Id] int  NOT NULL,
     [Node_Id] int  NOT NULL,
     [Parent_Id] int  NULL
@@ -112,8 +112,8 @@ GO
 CREATE TABLE [dbo].[ProjectNodeProperties] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Value] nvarchar(max)  NOT NULL,
-    [DateCreated] nvarchar(max)  NOT NULL,
-    [DateModified] nvarchar(max)  NOT NULL,
+    [DateCreated] datetime  NOT NULL,
+    [DateModified] datetime  NOT NULL,
     [Property_Id] int  NOT NULL,
     [ProjectNode_Id] int  NOT NULL
 );

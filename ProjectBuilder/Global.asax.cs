@@ -25,17 +25,5 @@ namespace ProjectBuilder
 
             MiniProfilerEF.Initialize();
         }
-
-        protected void Application_BeginRequest()
-        {
-            if (Request.IsLocal)
-            {
-                var ignored = MiniProfiler.Settings.IgnoredPaths.ToList();
-                ignored.Add("Glimpse.axd");
-                MiniProfiler.Settings.IgnoredPaths = ignored.ToArray();
-
-                MiniProfiler.Start();
-            }
-        }
     }
 }

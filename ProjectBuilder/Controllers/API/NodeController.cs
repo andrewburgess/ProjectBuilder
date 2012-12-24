@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using AttributeRouting.Web.Mvc;
 using ProjectBuilder.Controllers.API.Attributes;
 using ProjectBuilder.Orchestrators.Interfaces;
-using ProjectBuilder.ViewModels.API;
-using ProjectBuilder.ViewModels.API.Node;
+using ProjectBuilder.ViewModels.Node;
 
 namespace ProjectBuilder.Controllers.API
 {
@@ -22,21 +17,16 @@ namespace ProjectBuilder.Controllers.API
 
         [POST("api/node/add")]
         [ValidationActionFilter]
-        public AddReturnViewModel Create(AddNodeViewModel viewModel)
+        public int Create(AddNodeViewModel viewModel)
         {
-            if (ModelState.IsValid)
-                return Orchestrator.Add(viewModel);
-
-            throw new HttpException((int)HttpStatusCode.BadRequest,
-                                    ModelState.Values.Where(x => x.Errors.Count > 0).SelectMany(x => x.Errors).Select(
-                                        x => x.ErrorMessage).Aggregate((x, y) => x + ", " + y));
+            return Orchestrator.Add(viewModel);
         }
 
-        [GET("api/node/view")]
-        [HttpGet]
-        public string View()
+        [POST("api/node/edit")]
+        [ValidationActionFilter]
+        public void Edit(EditNodeViewModel viewModel)
         {
-            return "hahaha";
+            Orchestrator.Edit(viewModel);
         }
     }
 }

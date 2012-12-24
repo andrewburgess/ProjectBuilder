@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using AttributeRouting.Web.Mvc;
 using ProjectBuilder.Orchestrators.Interfaces;
-using ProjectBuilder.ViewModels.API.Node;
 
 namespace ProjectBuilder.Controllers
 {

@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectBuilder.ViewModels.API.Node
+namespace ProjectBuilder.ViewModels.Node
 {
-    public class AddNodeViewModel
+    public class EditNodeViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 

@@ -20,6 +20,38 @@
             var newNode = new Node({ Id: -1, Name: '', Description: '' });
             this.modalNode(newNode);
         };
+
+        this.saveNode = function () {
+            var savedNode = self.modalNode();
+
+            if (savedNode.Id() === -1) {
+                var node = new Node({ Id: savedNode.Id(), Name: savedNode.Name(), Description: savedNode.Description() });
+                self.nodes.push(node);
+
+                $.ajax({
+                    url: $('#node-form').data('add-url'),
+                    data: ko.toJSON(node),
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        node.Id(data);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: $('#node-form').data('edit-url'),
+                    data: ko.toJSON(savedNode),
+                    type: 'POST',
+                    contentType: 'application/json'
+                });
+            }
+
+            self.modalNode(undefined);
+        };
+
+        this.editNode = function (node) {
+            self.modalNode(node);
+        };
     }
 
     var PageViewModel = {

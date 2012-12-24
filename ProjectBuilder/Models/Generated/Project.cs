@@ -12,7 +12,7 @@ namespace ProjectBuilder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Project
+    public partial class Project : IEntity
     {
         public Project()
         {

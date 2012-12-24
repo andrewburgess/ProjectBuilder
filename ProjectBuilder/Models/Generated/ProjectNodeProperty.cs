@@ -12,12 +12,12 @@ namespace ProjectBuilder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectNodeProperty
+    public partial class ProjectNodeProperty : IEntity
     {
         public int Id { get; set; }
         public string Value { get; set; }
-        public string DateCreated { get; set; }
-        public string DateModified { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public System.DateTime DateModified { get; set; }
     
         public virtual Property Property { get; set; }
         public virtual ProjectNode ProjectNode { get; set; }

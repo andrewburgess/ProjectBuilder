@@ -12,7 +12,7 @@ namespace ProjectBuilder.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectNode
+    public partial class ProjectNode : IEntity
     {
         public ProjectNode()
         {
@@ -22,8 +22,8 @@ namespace ProjectBuilder.Models
     
         public int Id { get; set; }
         public int Order { get; set; }
-        public string DateCreated { get; set; }
-        public string DateModified { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public System.DateTime DateModified { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual Node Node { get; set; }

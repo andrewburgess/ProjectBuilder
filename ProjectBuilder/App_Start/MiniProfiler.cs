@@ -81,6 +81,10 @@ namespace ProjectBuilder.App_Start
         {
             context.BeginRequest += (sender, e) =>
             {
+                var ignored = MiniProfiler.Settings.IgnoredPaths.ToList();
+                ignored.Add("Glimpse.axd");
+                MiniProfiler.Settings.IgnoredPaths = ignored.ToArray();
+
                 var request = ((HttpApplication)sender).Request;
                 //TODO: By default only local requests are profiled, optionally you can set it up
                 //  so authenticated users are always profiled
