@@ -1,12 +1,12 @@
 ﻿(function ($, ko) {
 
-    function Node(data, children) {
+    function Node(data) {
         this.Id = ko.observable(data.Id);
         this.Name = ko.observable(data.Name);
         this.Description = ko.observable(data.Description);
         this.ParentId = ko.observable(data.ParentId);
 
-        this.Children = ko.observableArray(children || []);
+        this.Children = ko.observableArray(data.Children || []);
     }
 
     function NodeListViewModel(data) {

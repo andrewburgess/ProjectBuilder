@@ -63,5 +63,6 @@
             <a href='#' class='pull-right' data-bind="click: $parent.deleteNode"><i class='icon icon-remove'></i></a>
         </div>
         <div data-bind="text: Name, click: $parent.editNode"></div>
+        <ul data-bind='template: { name: "node-template", foreach: Children }'></ul>
     </li>
 </script>
