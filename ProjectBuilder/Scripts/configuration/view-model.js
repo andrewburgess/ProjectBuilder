@@ -6,22 +6,22 @@
         this.Description = ko.observable(data.Description);
         this.ParentId = ko.observable(data.ParentId);
 
-        this.Children = ko.observableArray(data.Children || []);
+        this.Children = ko.observableArray($.map(data.Children, function (item) { return new Node(item); }) || []);
     }
 
     function NodeListViewModel(data) {
         var self = this;
 
-        this.nodes = ko.observableArray($.map(data, function (item) { return new Node(item) }));
+        this.nodes = ko.observableArray($.map(data, function (item) { return new Node(item); }));
 
         this.modalNode = ko.observable();
         this.editNode = function (node) {
-            this.modalNode(node);
+            self.modalNode(node);
         };
 
         this.addNode = function () {
             var newNode = new Node({ Id: -1, Name: '', Description: '', ParentId: null });
-            this.modalNode(newNode);
+            self.modalNode(newNode);
         };
 
         this.saveNode = function () {
@@ -51,21 +51,6 @@
 
             self.modalNode(undefined);
         };
-
-        this.editNode = function (node) {
-            self.modalNode(node);
-        };
-
-        this.deleteNode = function (node) {
-            $.ajax({
-                url: $('#node-list').data('delete-url') + '/' + node.Id(),
-                type: 'POST',
-                contentType: 'application/json',
-                success: function () {
-                    self.nodes.destroy(node);
-                }
-            });
-        };
     }
 
     var PageViewModel = {
@@ -74,5 +59,18 @@
 
     // Activates knockout.js
     ko.applyBindings(PageViewModel.NodeListViewModel);
+
+    $("#node-list").delegate(".remove", "click", function () {
+        //retrieve the context
+        var context = ko.contextFor(this),
+        parentArray = context.$parent.nodes || context.$parent.Children;
+
+        //remove the data (context.$data) from the appropriate array on its parent (context.$parent)
+        $.post($('#node-list').data('delete-url') + '/' + context.$data.Id, function () {
+            parentArray.remove(context.$data);
+        });
+
+        return false;
+    });
 
 } (jQuery, ko));
