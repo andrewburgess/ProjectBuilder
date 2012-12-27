@@ -16,20 +16,11 @@ namespace ProjectBuilder.Controllers
             Orchestrator = orchestrator;
         }
 
-        [POST("api/node/add")]
-        [ValidationActionFilter]
-        public ActionResult Create(AddNodeViewModel viewModel)
+        [POST("api/node/save")]
+        //[ValidationActionFilter]
+        public ActionResult Save(SaveNodeViewModel viewModel)
         {
-            return Json(Orchestrator.Add(viewModel));
-        }
-
-        [POST("api/node/edit/{id?}")]
-        [ValidationActionFilter]
-        public ActionResult Edit(EditNodeViewModel viewModel)
-        {
-            Orchestrator.Edit(viewModel);
-
-            return new EmptyResult();
+            return Json(Orchestrator.Save(viewModel));
         }
 
         [POST("api/node/delete/{id?}")]

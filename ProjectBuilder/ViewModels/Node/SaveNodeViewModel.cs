@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProjectBuilder.ViewModels.Node
 {
-    public class EditNodeViewModel
+    public class SaveNodeViewModel
     {
         public int Id { get; set; }
 

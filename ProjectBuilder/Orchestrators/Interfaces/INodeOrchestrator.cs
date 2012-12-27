@@ -5,17 +5,11 @@ namespace ProjectBuilder.Orchestrators.Interfaces
     public interface INodeOrchestrator
     {
         /// <summary>
-        /// Adds a new node to the system
+        /// Saves the provided node data to the database. If the Id is -1, then it creates a new node.
         /// </summary>
-        /// <param name="viewModel">Data for the new node</param>
-        /// <returns>Id of the newly inserted node</returns>
-        int Add(AddNodeViewModel viewModel);
-
-        /// <summary>
-        /// Edits an existing node
-        /// </summary>
-        /// <param name="viewModel">Updated information for the node</param>
-        void Edit(EditNodeViewModel viewModel);
+        /// <param name="viewModel">User supplied data of the node</param>
+        /// <returns>Id of the node</returns>
+        int Save(SaveNodeViewModel viewModel);
 
         /// <summary>
         /// Deletes an existing node

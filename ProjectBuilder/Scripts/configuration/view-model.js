@@ -27,29 +27,19 @@
         this.saveNode = function () {
             var savedNode = self.modalNode();
 
-            if (savedNode.Id() === -1) {
-                var node = new Node({ Id: savedNode.Id(), Name: savedNode.Name(), Description: savedNode.Description(), ParentId: savedNode.ParentId() });
-                self.nodes.push(node);
-
-                $.ajax({
-                    url: $('#node-form').data('add-url'),
-                    data: ko.toJSON(node),
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        node.Id(data);
-                    }
-                });
-            } else {
-                $.ajax({
-                    url: $('#node-form').data('edit-url') + '/' + savedNode.Id(),
-                    data: ko.toJSON(savedNode),
-                    type: 'POST',
-                    contentType: 'application/json'
-                });
-            }
-
-            self.modalNode(undefined);
+            $.post($('#node-form').data('save-url'), ko.utils.unwrapObservable(savedNode), function (id) {
+                if (savedNode.Id() === -1) {
+                    var newNode = new Node({ 
+                                            Id: savedNode.Id(),
+                                            Name: savedNode.Name(),
+                                            Description: savedNode.Description(),
+                                            ParentId: savedNode.ParentId() 
+                                        });
+                    newNode.Id(id);
+                    self.nodes.push(newNode);
+                }
+                self.modalNode(undefined);
+            });
         };
     }
 

@@ -15,10 +15,8 @@ namespace ProjectBuilder.App_Start
             #region Node Mappings
 
             Mapper.CreateMap<Node, IndexNodeViewModel>();
-            Mapper.CreateMap<Node, AddNodeViewModel>();
-            Mapper.CreateMap<AddNodeViewModel, Node>();
-            Mapper.CreateMap<Node, EditNodeViewModel>();
-            Mapper.CreateMap<EditNodeViewModel, Node>();
+            Mapper.CreateMap<Node, SaveNodeViewModel>();
+            Mapper.CreateMap<SaveNodeViewModel, Node>();
 
             #endregion
         }
