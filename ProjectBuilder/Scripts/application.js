@@ -10,7 +10,7 @@
                                  append($('<h4>Error</h4>'));
             var ret = JSON.parse(jqxhr.responseText);
             if (typeof ret.Error === 'string') {
-                $('#system-message').text();
+                $('#system-message').append($('<div />').text(ret.Error));
             } else {
                 var ul = $('<ul />');
                 $.each(ret.Error, function (index, el) {
