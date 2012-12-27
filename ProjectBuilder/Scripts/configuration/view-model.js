@@ -29,12 +29,12 @@
 
             $.post($('#node-form').data('save-url'), ko.utils.unwrapObservable(savedNode), function (id) {
                 if (savedNode.Id() === -1) {
-                    var newNode = new Node({ 
-                                            Id: savedNode.Id(),
-                                            Name: savedNode.Name(),
-                                            Description: savedNode.Description(),
-                                            ParentId: savedNode.ParentId() 
-                                        });
+                    var newNode = new Node({
+                        Id: savedNode.Id(),
+                        Name: savedNode.Name(),
+                        Description: savedNode.Description(),
+                        ParentId: savedNode.ParentId()
+                    });
                     newNode.Id(id);
                     self.nodes.push(newNode);
                 }
@@ -56,7 +56,8 @@
         parentArray = context.$parent.nodes || context.$parent.Children;
 
         //remove the data (context.$data) from the appropriate array on its parent (context.$parent)
-        $.post($('#node-list').data('delete-url') + '/' + context.$data.Id, function () {
+        var nodeId = ko.utils.unwrapObservable(context.$data.Id);
+        $.post($('#node-list').data('delete-url') + '/' + nodeId, function () {
             parentArray.remove(context.$data);
         });
 

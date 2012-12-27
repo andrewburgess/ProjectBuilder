@@ -17,7 +17,7 @@ namespace ProjectBuilder.Controllers
         }
 
         [POST("api/node/save")]
-        //[ValidationActionFilter]
+        [ValidationActionFilter]
         public ActionResult Save(SaveNodeViewModel viewModel)
         {
             return Json(Orchestrator.Save(viewModel));
