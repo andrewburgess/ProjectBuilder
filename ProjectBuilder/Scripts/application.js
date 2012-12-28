@@ -57,6 +57,32 @@
         }
     };
 
+    ko.bindingHandlers.drag = {
+        init: function (element, valueAccessor, bindingsAccessor, viewModel, bindingContext) {
+            var defaults = {
+                containment: 'window',
+                revert: 'invalid',
+                revertDuration: 200,
+            };
+            var settings = $.extend({}, defaults, valueAccessor());
+
+            $(element).draggable(settings);
+            $(element).data('ko.draggable.data', bindingContext);
+        }
+    };
+
+    ko.bindingHandlers.drop = {
+        init: function (element, valueAccessor, bindingsAccessor, viewModel, bindingContext) {
+            var defaults = {
+                greedy: true
+            };
+
+            var settings = $.extend({}, defaults, valueAccessor());
+
+            $(element).droppable(settings);
+        }
+    };
+
     ko.validation.configure({
         errorMessageClass: 'help-inline',
         parseInputAttributes: true,

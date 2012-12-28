@@ -25,7 +25,7 @@
         };
 
         this.addNode = function () {
-            var newNode = new Node({ Id: -1, Name: '', Description: '', ParentId: null });
+            var newNode = new Node({ Id: -1, Name: '', Description: '', ParentId: -1 });
             self.modalNode(newNode);
         };
 
@@ -37,7 +37,7 @@
         this.saveNode = function () {
             var savedNode = self.modalNode();
 
-            $.post($('#node-form').data('save-url'), ko.utils.unwrapObservable(savedNode), function (id) {
+            $.post($('#node-list').data('save-url'), ko.utils.unwrapObservable(savedNode), function (id) {
                 if (savedNode.Id() === -1) {
                     var newNode = new Node({
                         Id: savedNode.Id(),
@@ -54,6 +54,19 @@
                     self.parentNode(undefined);
                 }
                 self.modalNode(undefined);
+            });
+        };
+
+        this.updateParent = function (evt, ui, drop) {
+            var dragdata = $(ui.draggable.context).data('ko.draggable.data');
+            var dropdata = $(drop).data('ko.draggable.data');
+
+            var parentArray = dragdata.$parent.nodes || dragdata.$parent.Children;
+
+            dragdata.$data.ParentId(ko.utils.unwrapObservable(dropdata.$data.Id));
+            $.post($('#node-list').data('save-url'), ko.toJS(dragdata.$data), function (id) {
+                parentArray.remove(dragdata.$data);
+                dropdata.$data.Children.push(dragdata.$data);
             });
         };
     }

@@ -242,6 +242,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\Generated\ProjectBuilderDataModel.edmx.sql" />
     <Content Include="Scripts\application.js" />
+    <Content Include="Scripts\library\jquery-ui-1.9.2.js" />
+    <Content Include="Scripts\library\jquery-ui-1.9.2.min.js" />
     <Content Include="Scripts\library\knockout.validation.debug.js" />
     <Content Include="Scripts\library\knockout.validation.js" />
     <Content Include="Scripts\library\bootstrap.js" />

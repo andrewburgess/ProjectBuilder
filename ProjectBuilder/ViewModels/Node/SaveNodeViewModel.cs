@@ -13,6 +13,7 @@ namespace ProjectBuilder.ViewModels.Node
         [Required]
         public string Description { get; set; }
 
-        public int? ParentId { get; set; }
+        [Required]
+        public int ParentId { get; set; }
     }
 }

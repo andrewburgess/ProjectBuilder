@@ -19,7 +19,7 @@
 </p>
 }
 
-<div id='node-list' data-delete-url="@Url.Action("Delete", "Node")">
+<div id='node-list' data-save-url='@Url.Action("Save", "Node")' data-delete-url="@Url.Action("Delete", "Node")">
     <div>
         <button id='add-node' class='btn btn-primary' data-bind='click: addNode'>Add Node</button>
     </div>
@@ -35,7 +35,7 @@
         <h3>Node Form</h3>
     </div>
     <div class='modal-body'>
-        <form id='node-form' class='form-horizontal' data-save-url='@Url.Action("Save", "Node")'>
+        <form id='node-form' class='form-horizontal'>
             <div class='control-group' data-bind='validationElement: Name'>
                 <label class='control-label' for='node-name'>Name:</label>
                 <div class='controls'>
@@ -58,13 +58,15 @@
 </div>
 
 <script type='text/html' id='node-template' class='hide'>
-    <li>
+    <li data-bind='drag: {containment: "#content"},
+                   drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
         <div class='pull-right'>
             <a href='#' class='remove pull-right'><i class='icon icon-remove'></i></a>
         </div>
         <div>
+            <div class='drag-handle pull-left'><i class='icon-move'></i></div>
             <div data-bind='text: Name, click: $root.editNode' class='pull-left'></div>
-            <button class='btn  btn-mini' data-bind='click: $root.addChild'><i class='icon-plus-sign'></i> Add Child</button>
+            <button class='btn btn-mini' data-bind='click: $root.addChild'><i class='icon-plus-sign'></i> Add Child</button>
         </div>
         <ul data-bind='template: { name: "node-template", foreach: Children }'></ul>
     </li>

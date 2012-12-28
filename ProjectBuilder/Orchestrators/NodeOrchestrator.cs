@@ -17,7 +17,7 @@ namespace ProjectBuilder.Orchestrators
                 if (viewModel.Id == -1)
                 {
                     node = Mapper.Map<SaveNodeViewModel, Node>(viewModel);
-                    if (viewModel.ParentId.HasValue)
+                    if (viewModel.ParentId != -1)
                     {
                         var parent = context.Nodes.FirstOrDefault(x => x.Id == viewModel.ParentId);
                         if (parent == null)
@@ -34,14 +34,14 @@ namespace ProjectBuilder.Orchestrators
 
                     Mapper.Map(viewModel, node);
 
-                    if (viewModel.ParentId.HasValue && (node.Parent == null || viewModel.ParentId.GetValueOrDefault() != node.Parent.Id))
+                    if (viewModel.ParentId != -1 && (node.Parent == null || viewModel.ParentId != node.Parent.Id))
                     {
                         var parent = context.Nodes.FirstOrDefault(x => x.Id == viewModel.ParentId);
                         if (parent == null)
                             throw new ArgumentException("Parent node was not found");
                         node.Parent = parent;
                     }
-                    else if (!viewModel.ParentId.HasValue && node.Parent != null)
+                    else if (viewModel.ParentId != -1 && node.Parent != null)
                         node.Parent = null;
                 }
 
