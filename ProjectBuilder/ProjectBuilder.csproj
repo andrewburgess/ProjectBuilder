@@ -232,26 +232,23 @@
     <Content Include="config_transform.msbuild">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\style.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Global.asax" />
     <Content Include="Models\Generated\ProjectBuilderDataModel.edmx.sql" />
     <Content Include="Scripts\application.js" />
+    <Content Include="Scripts\library\knockout.validation.debug.js" />
+    <Content Include="Scripts\library\knockout.validation.js" />
     <Content Include="Scripts\library\bootstrap.js" />
     <Content Include="Scripts\library\bootstrap.min.js" />
     <Content Include="Scripts\configuration\view-model.js" />
     <Content Include="Scripts\library\jquery-1.8.3.js" />
     <Content Include="Scripts\library\jquery-1.8.3.min.js" />
-    <Content Include="Scripts\library\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\library\jquery.validate.js" />
-    <Content Include="Scripts\library\jquery.validate.min.js" />
-    <Content Include="Scripts\library\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\library\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\library\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\library\knockout-2.2.0.js" />
     <Content Include="Views\Web.config" />
