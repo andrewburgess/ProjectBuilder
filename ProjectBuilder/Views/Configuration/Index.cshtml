@@ -36,7 +36,7 @@
     </div>
     <div class='modal-body'>
         <form id='node-form' class='form-horizontal' data-save-url='@Url.Action("Save", "Node")'>
-            <div class='control-group'>
+            <div class='control-group' data-bind='validationElement: Name'>
                 <label class='control-label' for='node-name'>Name:</label>
                 <div class='controls'>
                     <input type='text' id='node-name' placeholder='Name of node' data-bind='value: Name' />
@@ -57,12 +57,15 @@
     </div>
 </div>
 
-<script type='text/html' id='node-template'>
+<script type='text/html' id='node-template' class='hide'>
     <li>
         <div class='pull-right'>
             <a href='#' class='remove pull-right'><i class='icon icon-remove'></i></a>
         </div>
-        <div data-bind="text: Name, click: $root.editNode"></div>
+        <div>
+            <div data-bind='text: Name, click: $root.editNode' class='pull-left'></div>
+            <button class='btn  btn-mini' data-bind='click: $root.addChild'><i class='icon-plus-sign'></i> Add Child</button>
+        </div>
         <ul data-bind='template: { name: "node-template", foreach: Children }'></ul>
     </li>
 </script>

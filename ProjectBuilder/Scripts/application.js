@@ -57,4 +57,11 @@
         }
     };
 
+    ko.validation.configure({
+        errorMessageClass: 'help-inline',
+        parseInputAttributes: true,
+        decorateElement: true,
+        errorElementClass: 'error'
+    });
+
 } (jQuery, ko));
