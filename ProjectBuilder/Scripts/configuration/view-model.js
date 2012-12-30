@@ -62,12 +62,16 @@
                         ParentId: savedNode.ParentId()
                     });
                     newNode.Id(id);
-                    if (self.parentNode())
+                    if (self.parentNode()) {
                         self.parentNode().Children.push(newNode);
-                    else
+                        newNode.Parent(self.parentNode);
+                    } else {
                         self.nodes.push(newNode);
+                        newNode.Parent(null);
+                    }
 
                     self.parentNode(undefined);
+                    self.selectedNode(newNode);
                 }
                 self.modalNode(undefined);
             });
@@ -120,7 +124,7 @@
 
         //retrieve the context
         var context = ko.contextFor(this),
-            parent = context.$parent,
+            parent = context.$parent.nodes().length > 0 ? context.$parent.nodes()[0] : undefined,
             parentArray = context.$parent.nodes;
         if (context.$data.Parent() !== null) {
             parent = context.$data.Parent();
