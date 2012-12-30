@@ -2,11 +2,8 @@
 
     function Node(data) {
         this.Id = ko.observable(data.Id);
-        this.Name = ko.observable(data.Name).
-                       extend({
-                           required: { message: 'Name is required' }
-                       });
-        this.Description = ko.observable(data.Description);
+        this.Name = ko.observable(data.Name).extend({ required: { message: 'Name is required' }});
+        this.Description = ko.observable(data.Description).extend({ required: { message: 'Description is required' }});
         this.ParentId = ko.observable(data.ParentId);
 
         this.Children = ko.observableArray($.map(data.Children || [], function (item) { return new Node(item); }) || []);
