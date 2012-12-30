@@ -32,6 +32,7 @@
     <div class='span9' data-bind='with: selectedNode, visible: $root.nodes().length > 0'>
         <div>
             <button class='btn btn-danger pull-right remove'><i class='icon-remove'></i> Delete</button>
+            <button class='btn btn-info' data-bind='click: $root.addChild'><i class='icon-plus'></i> Add Child</button>
             <button class='btn btn-warning' data-bind='click: $root.editNode'><i class='icon-edit'></i> Edit</button>
         </div>
         <div>

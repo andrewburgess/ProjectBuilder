@@ -64,7 +64,7 @@
                     newNode.Id(id);
                     if (self.parentNode()) {
                         self.parentNode().Children.push(newNode);
-                        newNode.Parent(self.parentNode);
+                        newNode.Parent(self.parentNode());
                     } else {
                         self.nodes.push(newNode);
                         newNode.Parent(null);
