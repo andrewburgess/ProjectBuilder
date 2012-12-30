@@ -14,11 +14,11 @@ namespace ProjectBuilder.Orchestrators
         {
             using (var context = new DataModel())
             {
-                var nodes = Mapper.Map<List<Node>, List<IndexNodeViewModel>>(context.Nodes.ToList());
+                var nodes = Mapper.Map<List<Node>, List<IndexNodeViewModel>>(context.Nodes.Where(x => x.Parent == null).ToList());
 
                 return new IndexViewModel
                            {
-                               Nodes = nodes.Where(x => x.ParentId == null).ToList()
+                               Nodes = nodes
                            };
             }
         }
