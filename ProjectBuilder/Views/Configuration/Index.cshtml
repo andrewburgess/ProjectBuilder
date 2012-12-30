@@ -19,13 +19,22 @@
 </p>
 }
 
-<div id='node-list' data-save-url='@Url.Action("Save", "Node")' data-delete-url="@Url.Action("Delete", "Node")">
-    <div>
-        <button id='add-node' class='btn btn-primary' data-bind='click: addNode'>Add Node</button>
+<div>
+    <button id='add-node' class='btn btn-primary' data-bind='click: addNode'>Add Node</button>
+</div>
+<div id='node-list' class='row' data-save-url='@Url.Action("Save", "Node")' data-delete-url="@Url.Action("Delete", "Node")">
+    <div class='span3'>
+        <ul data-bind='template: {name: "node-menu-template", foreach: nodes}'>
+        
+        </ul>
     </div>
 
-    <div class='accordion' data-bind='template: {name: "node-template", foreach: nodes}'>
-        
+    <div class='span9' data-bind='with: selectedNode'>
+        <div>
+            <h1 data-bind='text: Name'></h1>
+        </div>
+        <div class='well' data-bind='text: Description'>
+        </div>
     </div>
 </div>
 
@@ -57,24 +66,13 @@
     </div>
 </div>
 
-<script type='text/html' id='node-template' class='hide'>
-    <div class='accordion-group'>
-        <div class='accordion-heading' data-bind='drag: {appendTo: "body", containment: "#content", helper: "clone"},
-                                                  drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
-            <a class='accordion-toggle' data-toggle='collapse' data-bind='attr: {href: Anchor}, text: Name' />
-        </div>
-        <div class='accordion-body collapse' data-bind='attr: {id: Uri}'>
-            <div class='accordion-inner'>
-                <div data-bind='text: Description'></div>
-                <div>
-                    <button class='remove btn btn-danger btn-large pull-right'><i href='icon-remove'></i> Delete</button>
-                    <button class='btn btn-warning btn-small' data-bind='click: $root.editNode'><i href='icon-edit'></i> Edit</button>
-                    <button class='btn btn-info btn-small' data-bind='click: $root.addChild'><i href='icon-plus'></i> Add</button>
-                </div>
-
-                <div class='accordion' data-bind='template: {name: "node-template", foreach: Children }'>
-                </div>
-            </div>
-        </div>
+<script type='text/html' id='node-menu-template' class='hide'>
+    <li data-bind='drag: {appendTo: "body", containment: "#content"},
+                   drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
+        <div class='node-title' data-bind='text: Name, 
+                                           style: {fontWeight: Id() === $root.selectedNode().Id() ? "bold" : "normal"},
+                                           click: $root.selectNode' />
+        <ul data-bind='template: {name: "node-menu-template", foreach: Children }'>
+        </ul>
     </div>
 </script>

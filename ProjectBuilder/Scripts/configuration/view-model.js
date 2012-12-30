@@ -30,6 +30,7 @@
 
         this.modalNode = ko.observable();
         this.parentNode = ko.observable();
+        this.selectedNode = this.nodes().length > 0 ? ko.observable(this.nodes()[0]) : ko.observable();
 
         this.editNode = function (node) {
             self.modalNode(node);
@@ -43,7 +44,11 @@
         this.addChild = function (parent) {
             self.parentNode(parent);
             self.modalNode(new Node({ Id: -1, Name: '', Description: '', ParentId: ko.utils.unwrapObservable(parent.Id) }));
-        }
+        };
+
+        this.selectNode = function (node) {
+            self.selectedNode(node);
+        };
 
         this.saveNode = function () {
             var savedNode = self.modalNode();
