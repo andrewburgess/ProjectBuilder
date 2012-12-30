@@ -10,7 +10,7 @@
         this.Id = ko.observable(data.Id);
         this.Name = ko.observable(data.Name).extend({ required: { message: 'Name is required'} });
         this.Description = ko.observable(data.Description).extend({ required: { message: 'Description is required'} });
-        this.ParentId = ko.observable(data.ParentId);
+        this.ParentId = ko.observable(data.ParentId === null ? -1 : data.ParentId);
 
         this.Children = ko.observableArray($.map(data.Children || [], function (item) { return new Node(item); }) || []);
 
@@ -32,8 +32,8 @@
         this.parentNode = ko.observable();
         this.selectedNode = this.nodes().length > 0 ? ko.observable(this.nodes()[0]) : ko.observable();
 
-        this.editNode = function (node) {
-            self.modalNode(node);
+        this.editNode = function () {
+            self.modalNode(self.selectedNode());
         };
 
         this.addNode = function () {
@@ -53,7 +53,7 @@
         this.saveNode = function () {
             var savedNode = self.modalNode();
 
-            $.post($('#node-list').data('save-url'), ko.utils.unwrapObservable(savedNode), function (id) {
+            $.post($('#node-list').data('save-url'), ko.toJS(savedNode), function (id) {
                 if (savedNode.Id() === -1) {
                     var newNode = new Node({
                         Id: savedNode.Id(),
