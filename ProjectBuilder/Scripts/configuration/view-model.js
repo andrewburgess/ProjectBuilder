@@ -122,7 +122,7 @@
         var context = ko.contextFor(this),
             parent = context.$parent,
             parentArray = context.$parent.nodes;
-        if (context.$data.Parent !== null) {
+        if (context.$data.Parent() !== null) {
             parent = context.$data.Parent();
             parentArray = context.$data.Parent().Children;
         }
