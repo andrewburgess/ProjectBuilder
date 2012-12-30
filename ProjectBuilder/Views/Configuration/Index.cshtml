@@ -24,9 +24,9 @@
         <button id='add-node' class='btn btn-primary' data-bind='click: addNode'>Add Node</button>
     </div>
 
-    <ul data-bind='template: {name: "node-template", foreach: nodes}'>
+    <div class='accordion' data-bind='template: {name: "node-template", foreach: nodes}'>
         
-    </ul>
+    </div>
 </div>
 
 <div id='modal-node-dialog' class='modal fade' data-bind='modal: modalNode'>
@@ -58,16 +58,23 @@
 </div>
 
 <script type='text/html' id='node-template' class='hide'>
-    <li data-bind='drag: {containment: "#content"},
-                   drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
-        <div class='pull-right'>
-            <a href='#' class='remove pull-right'><i class='icon icon-remove'></i></a>
+    <div class='accordion-group' data-bind='drag: {containment: "#content", helper: "clone"},
+                                            drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
+        <div class='accordion-heading'>
+            <a class='accordion-toggle' data-toggle='collapse' data-bind='attr: {href: Anchor}, text: Name' />
         </div>
-        <div>
-            <div class='drag-handle pull-left'><i class='icon-move'></i></div>
-            <div data-bind='text: Name, click: $root.editNode' class='pull-left'></div>
-            <button class='btn btn-mini' data-bind='click: $root.addChild'><i class='icon-plus-sign'></i> Add Child</button>
+        <div class='accordion-body collapse' data-bind='attr: {id: Uri}'>
+            <div class='accordion-inner'>
+                <div data-bind='text: Description'></div>
+                <div>
+                    <button class='remove btn btn-danger btn-large pull-right'><i href='icon-remove'></i> Delete</button>
+                    <button class='btn btn-warning btn-small' data-bind='click: $root.editNode'><i href='icon-edit'></i> Edit</button>
+                    <button class='btn btn-info btn-small' data-bind='click: $root.addChild'><i href='icon-plus'></i> Add</button>
+                </div>
+
+                <div class='accordion' data-bind='template: {name: "node-template", foreach: Children }'>
+                </div>
+            </div>
         </div>
-        <ul data-bind='template: { name: "node-template", foreach: Children }'></ul>
-    </li>
+    </div>
 </script>
