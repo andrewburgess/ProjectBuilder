@@ -58,9 +58,9 @@
 </div>
 
 <script type='text/html' id='node-template' class='hide'>
-    <div class='accordion-group' data-bind='drag: {containment: "#content", helper: "clone"},
-                                            drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
-        <div class='accordion-heading'>
+    <div class='accordion-group'>
+        <div class='accordion-heading' data-bind='drag: {appendTo: "body", containment: "#content", helper: "clone"},
+                                                  drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
             <a class='accordion-toggle' data-toggle='collapse' data-bind='attr: {href: Anchor}, text: Name' />
         </div>
         <div class='accordion-body collapse' data-bind='attr: {id: Uri}'>

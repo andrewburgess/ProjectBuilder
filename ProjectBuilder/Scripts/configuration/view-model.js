@@ -74,11 +74,32 @@
 
             var parentArray = dragdata.$parent.nodes || dragdata.$parent.Children;
 
+            var draggedId = ko.utils.unwrapObservable(dragdata.$data.Id);
+            var droppedId = ko.utils.unwrapObservable(dropdata.$data.Id);
+            var droppedParentId = ko.utils.unwrapObservable(dropdata.$data.ParentId);
+
+            if (draggedId === droppedParentId || this.isChildOf(droppedId, ko.utils.unwrapObservable(dragdata.$data.Children)))
+                return;
+
             dragdata.$data.ParentId(ko.utils.unwrapObservable(dropdata.$data.Id));
             $.post($('#node-list').data('save-url'), ko.toJS(dragdata.$data), function (id) {
                 parentArray.remove(dragdata.$data);
                 dropdata.$data.Children.push(dragdata.$data);
             });
+        };
+
+        this.isChildOf = function (nodeId, array) {
+            var found = false;
+            for (var i = 0; i < array.length; i++) {
+                found = ko.utils.unwrapObservable(array[i].Id) === nodeId;
+                if (found)
+                    break;
+
+                found = self.isChildOf(nodeId, ko.utils.unwrapObservable(array[i].Children));
+                if (found)
+                    break;
+            }
+            return found;
         };
     }
 
