@@ -4,15 +4,15 @@
         return str.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     }
 
-    function Node(data) {
+    function Node(data, parent) {
         var self = this;
 
         this.Id = ko.observable(data.Id);
         this.Name = ko.observable(data.Name).extend({ required: { message: 'Name is required'} });
         this.Description = ko.observable(data.Description).extend({ required: { message: 'Description is required'} });
         this.ParentId = ko.observable(data.ParentId === null ? -1 : data.ParentId);
-
-        this.Children = ko.observableArray($.map(data.Children || [], function (item) { return new Node(item); }) || []);
+        this.Parent = ko.observable(parent);
+        this.Children = ko.observableArray($.map(data.Children || [], function (item) { return new Node(item, self); }) || []);
 
         this.Uri = ko.computed(function () {
             return generateSlug(ko.utils.unwrapObservable(self.Name));
@@ -26,7 +26,7 @@
     function NodeListViewModel(data) {
         var self = this;
 
-        this.nodes = ko.observableArray($.map(data, function (item) { return new Node(item); }));
+        this.nodes = ko.observableArray($.map(data, function (item) { return new Node(item, null); }));
 
         this.modalNode = ko.observable();
         this.parentNode = ko.observable();
@@ -120,12 +120,18 @@
 
         //retrieve the context
         var context = ko.contextFor(this),
-        parentArray = context.$parent.nodes || context.$parent.Children;
+            parent = context.$parent,
+            parentArray = context.$parent.nodes;
+        if (context.$data.Parent !== null) {
+            parent = context.$data.Parent();
+            parentArray = context.$data.Parent().Children;
+        }
 
         //remove the data (context.$data) from the appropriate array on its parent (context.$parent)
         var nodeId = ko.utils.unwrapObservable(context.$data.Id);
         $.post($('#node-list').data('delete-url') + '/' + nodeId, function () {
             parentArray.remove(context.$data);
+            context.$root.selectedNode(parent);
         });
     });
 
