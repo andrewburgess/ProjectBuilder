@@ -5,7 +5,7 @@ namespace ProjectBuilder.ViewModels.Node
 {
     public class SaveNodeViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -13,7 +13,6 @@ namespace ProjectBuilder.ViewModels.Node
         [Required]
         public string Description { get; set; }
 
-        [Required]
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
     }
 }

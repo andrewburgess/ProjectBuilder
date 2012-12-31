@@ -23,6 +23,8 @@ namespace ProjectBuilder
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             MapperConfig.RegisterMappings();
 
+            DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
+
             MiniProfilerEF.Initialize();
         }
     }

@@ -175,6 +175,7 @@
     <Compile Include="App_Start\MiniProfiler.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\Attributes\HandleAjaxErrorAttribute.cs" />
+    <Compile Include="Controllers\Helpers\JSON\LowercaseContractResolver.cs" />
     <Compile Include="Controllers\NodeController.cs" />
     <Compile Include="Controllers\Attributes\ValidationActionFilter.cs" />
     <Compile Include="Controllers\HomeController.cs" />

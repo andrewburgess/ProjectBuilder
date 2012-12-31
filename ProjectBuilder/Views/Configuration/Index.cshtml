@@ -7,7 +7,7 @@
 
 @section Javascript {
     <script type='text/javascript'>
-        var nodes = @Html.Raw(Json.Encode(Model.Nodes));
+        var nodes = @Html.Raw(Model.NodesJson);
     </script>
     <script type='text/javascript' src='@Url.Content("~/Scripts/configuration/view-model.js")'></script>
 }
@@ -31,14 +31,14 @@
 
     <div class='span9' data-bind='with: selectedNode, visible: $root.nodes().length > 0'>
         <div>
-            <button class='btn btn-danger pull-right remove'><i class='icon-remove'></i> Delete</button>
+            <button class='btn btn-danger pull-right' data-bind='click: $root.deleteNode'><i class='icon-remove'></i> Delete</button>
             <button class='btn btn-info' data-bind='click: $root.addChild'><i class='icon-plus'></i> Add Child</button>
             <button class='btn btn-warning' data-bind='click: $root.editNode'><i class='icon-edit'></i> Edit</button>
         </div>
         <div>
-            <h1 data-bind='text: Name'></h1>
+            <h1 data-bind='text: name'></h1>
         </div>
-        <div class='well' data-bind='text: Description'>
+        <div class='well' data-bind='text: description'>
         </div>
         <div>
             <h2>Properties</h2>
@@ -53,16 +53,16 @@
     </div>
     <div class='modal-body'>
         <form id='node-form' class='form-horizontal'>
-            <div class='control-group' data-bind='validationElement: Name'>
+            <div class='control-group' data-bind='validationElement: name'>
                 <label class='control-label' for='node-name'>Name:</label>
                 <div class='controls'>
-                    <input type='text' class='input-xlarge' placeholder='Name of node' data-bind='value: Name' />
+                    <input type='text' class='input-xlarge' placeholder='Name of node' data-bind='value: name' />
                 </div>
             </div>
-            <div class='control-group' data-bind='validationElement: Description'>
+            <div class='control-group' data-bind='validationElement: description'>
                 <label class='control-label' for='node-description'>Description:</label>
                 <div class='controls'>
-                    <textarea class='input-xlarge' rows='6' placeholder='Description of node' data-bind='value: Description'>
+                    <textarea class='input-xlarge' rows='6' placeholder='Description of node' data-bind='value: description'>
                     </textarea>
                 </div>
             </div>
@@ -75,12 +75,11 @@
 </div>
 
 <script type='text/html' id='node-menu-template' class='hide'>
-    <li data-bind='drag: {appendTo: "body", containment: "#content"},
-                   drop: {drop: function (evt, ui) { $root.updateParent(evt, ui, this) }}'>
-        <div class='node-title' data-bind='text: Name, 
-                                           style: {fontWeight: Id() === $root.selectedNode().Id() ? "bold" : "normal"},
+    <li>
+        <div class='node-title' data-bind='text: name, 
+                                           style: {fontWeight: id() === $root.selectedNode().id() ? "bold" : "normal"},
                                            click: $root.selectNode' />
-        <ul data-bind='template: {name: "node-menu-template", foreach: Children }'>
+        <ul data-bind='template: {name: "node-menu-template", foreach: children }'>
         </ul>
     </div>
 </script>

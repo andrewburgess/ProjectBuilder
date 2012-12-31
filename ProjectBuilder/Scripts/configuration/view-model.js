@@ -1,26 +1,23 @@
 ﻿(function ($, ko) {
 
-    function generateSlug(str) {
-        return str.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
-    }
-
     function Node(data, parent) {
         var self = this;
 
-        this.Id = ko.observable(data.Id);
-        this.Name = ko.observable(data.Name).extend({ required: { message: 'Name is required'} });
-        this.Description = ko.observable(data.Description).extend({ required: { message: 'Description is required'} });
-        this.ParentId = ko.observable(data.ParentId === null ? -1 : data.ParentId);
-        this.Parent = ko.observable(parent);
-        this.Children = ko.observableArray($.map(data.Children || [], function (item) { return new Node(item, self); }) || []);
+        this.id = ko.observable(ko.utils.unwrapObservable(data.id));
+        this.name = ko.observable(ko.utils.unwrapObservable(data.name)).extend({ required: { message: 'Name is required'} });
+        this.description = ko.observable(ko.utils.unwrapObservable(data.description)).extend({ required: { message: 'Description is required'} });
+        this.parentId = ko.observable(ko.utils.unwrapObservable(data.parentId));
+        this.children = ko.observableArray($.map(data.children || [], function (item) { return new Node(item, self); }) || []);
+        this.parent = ko.observable(parent);
+    }
 
-        this.Uri = ko.computed(function () {
-            return generateSlug(ko.utils.unwrapObservable(self.Name));
-        });
-
-        this.Anchor = ko.computed(function () {
-            return '#' + ko.utils.unwrapObservable(self.Uri);
-        });
+    Node.prototype.getJS = function () {
+        return {
+            Id: ko.utils.unwrapObservable(this.id),
+            Name: ko.utils.unwrapObservable(this.name),
+            Description: ko.utils.unwrapObservable(this.description),
+            ParentId: ko.utils.unwrapObservable(this.parentId)
+        };
     }
 
     function NodeListViewModel(data) {
@@ -29,7 +26,6 @@
         this.nodes = ko.observableArray($.map(data, function (item) { return new Node(item, null); }));
 
         this.modalNode = ko.observable();
-        this.parentNode = ko.observable();
         this.selectedNode = this.nodes().length > 0 ? ko.observable(this.nodes()[0]) : ko.observable();
 
         this.editNode = function () {
@@ -37,13 +33,12 @@
         };
 
         this.addNode = function () {
-            var newNode = new Node({ Id: -1, Name: '', Description: '', ParentId: -1 });
+            var newNode = new Node({ id: null, name: '', description: '', parentId: null }, null);
             self.modalNode(newNode);
         };
 
         this.addChild = function (parent) {
-            self.parentNode(parent);
-            self.modalNode(new Node({ Id: -1, Name: '', Description: '', ParentId: ko.utils.unwrapObservable(parent.Id) }));
+            self.modalNode(new Node({ id: null, name: '', description: '', parentId: ko.utils.unwrapObservable(parent.id) }, parent));
         };
 
         this.selectNode = function (node) {
@@ -53,62 +48,33 @@
         this.saveNode = function () {
             var savedNode = self.modalNode();
 
-            $.post($('#node-list').data('save-url'), ko.toJS(savedNode), function (id) {
-                if (savedNode.Id() === -1) {
-                    var newNode = new Node({
-                        Id: savedNode.Id(),
-                        Name: savedNode.Name(),
-                        Description: savedNode.Description(),
-                        ParentId: savedNode.ParentId()
-                    });
-                    newNode.Id(id);
-                    if (self.parentNode()) {
-                        self.parentNode().Children.push(newNode);
-                        newNode.Parent(self.parentNode());
+            $.post($('#node-list').data('save-url'), savedNode.getJS(), function (id) {
+                if (savedNode.id() === null) {
+                    var newNode = new Node(savedNode, savedNode.parent());
+                    newNode.id(id);
+                    if (newNode.parent()) {
+                        newNode.parent().children.push(newNode);
                     } else {
                         self.nodes.push(newNode);
-                        newNode.Parent(null);
                     }
 
-                    self.parentNode(undefined);
                     self.selectedNode(newNode);
                 }
                 self.modalNode(undefined);
             });
         };
 
-        this.updateParent = function (evt, ui, drop) {
-            var dragdata = $(ui.draggable.context).data('ko.draggable.data');
-            var dropdata = $(drop).data('ko.draggable.data');
-
-            var parentArray = dragdata.$parent.nodes || dragdata.$parent.Children;
-
-            var draggedId = ko.utils.unwrapObservable(dragdata.$data.Id);
-            var droppedId = ko.utils.unwrapObservable(dropdata.$data.Id);
-            var droppedParentId = ko.utils.unwrapObservable(dropdata.$data.ParentId);
-
-            if (draggedId === droppedParentId || this.isChildOf(droppedId, ko.utils.unwrapObservable(dragdata.$data.Children)))
-                return;
-
-            dragdata.$data.ParentId(ko.utils.unwrapObservable(dropdata.$data.Id));
-            $.post($('#node-list').data('save-url'), ko.toJS(dragdata.$data), function (id) {
-                parentArray.remove(dragdata.$data);
-                dropdata.$data.Children.push(dragdata.$data);
+        this.deleteNode = function () {
+            var nodeId = ko.utils.unwrapObservable(self.selectedNode().id);
+            $.post($('#node-list').data('delete-url') + '/' + nodeId, function () {
+                if (self.selectedNode().parent()) {
+                    self.selectedNode().parent().children.remove(self.selectedNode());
+                    self.selectedNode(self.selectedNode().parent());
+                } else {
+                    self.nodes.remove(self.selectedNode());
+                    self.selectedNode(self.nodes().length > 0 ? self.nodes()[0] : undefined);
+                }
             });
-        };
-
-        this.isChildOf = function (nodeId, array) {
-            var found = false;
-            for (var i = 0; i < array.length; i++) {
-                found = ko.utils.unwrapObservable(array[i].Id) === nodeId;
-                if (found)
-                    break;
-
-                found = self.isChildOf(nodeId, ko.utils.unwrapObservable(array[i].Children));
-                if (found)
-                    break;
-            }
-            return found;
         };
     }
 
@@ -118,25 +84,5 @@
 
     // Activates knockout.js
     ko.applyBindings(PageViewModel.NodeListViewModel);
-
-    $("#node-list").delegate(".remove", "click", function (event) {
-        event.preventDefault();
-
-        //retrieve the context
-        var context = ko.contextFor(this),
-            parent = context.$parent.nodes().length > 0 ? context.$parent.nodes()[0] : undefined,
-            parentArray = context.$parent.nodes;
-        if (context.$data.Parent() !== null) {
-            parent = context.$data.Parent();
-            parentArray = context.$data.Parent().Children;
-        }
-
-        //remove the data (context.$data) from the appropriate array on its parent (context.$parent)
-        var nodeId = ko.utils.unwrapObservable(context.$data.Id);
-        $.post($('#node-list').data('delete-url') + '/' + nodeId, function () {
-            parentArray.remove(context.$data);
-            context.$root.selectedNode(parent);
-        });
-    });
 
 } (jQuery, ko));
